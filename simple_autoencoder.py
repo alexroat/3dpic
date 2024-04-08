@@ -9,6 +9,8 @@ from torch.nn import functional as F
 from torchsummary import summary
 from torch.utils.data import DataLoader
 from torchvision import transforms
+import os
+import caffeine
 
 from model import *
 
@@ -28,12 +30,20 @@ autoencoder = Autoencoder().to(device)
 optimizer = optim.Adam(autoencoder.parameters(), lr=0.001)
 criterion = nn.MSELoss()
 
-K=50
+K=5
+checkpoint_path = 'checkpoint.pth'
+
+# Attiva il mantenimento attivo del computer
+caffeine.on(display=False)
 
 # Funzione per caricare il video e processare i frame
 def process_video(video_path, autoencoder):
     cap = cv2.VideoCapture(video_path)
     total_error = 0
+    
+    if os.path.exists(checkpoint_path):
+        # Carica lo stato del modello solo se il file esiste
+        autoencoder.load_state_dict(torch.load(checkpoint_path))
 
     i=0
     while cap.isOpened():
@@ -68,6 +78,9 @@ def process_video(video_path, autoencoder):
             
             # Azzeramento dei gradienti
             optimizer.zero_grad()
+            
+            torch.save(autoencoder.state_dict(), 'checkpoint.pth')
+
             
                 
 
