@@ -27,19 +27,19 @@ class Encoder(nn.Module):
         self.linear = nn.Linear(256*128*128, 6)
 
     def forward(self, x):
-        # print(x.shape)
+        # #print(x.shape)
         #x=x.permute(2,1,0).unsqueeze(0)
-        print(x.shape)
+        #print(x.shape)
         x = self.pool1(F.relu(self.conv1(x)))
-        print(x.shape)
+        #print(x.shape)
         x = self.pool2(F.relu(self.conv2(x)))
-        print(x.shape)
+        #print(x.shape)
         x = self.pool3(F.relu(self.conv3(x)))
-        print(x.shape)
+        #print(x.shape)
         s = F.relu(self.conv4(x))
-        # print(s.shape)
+        # #print(s.shape)
         s=s.view(3, 128*128)
-        print(x.shape)
+        #print(x.shape)
         p = self.linear(torch.flatten(x, 1))
         return s, p
 
@@ -79,6 +79,6 @@ class Autoencoder(nn.Module):
 
     def forward(self, x):
         s, p = self.encoder(x)
-        print(s.shape,p.shape)
+        #print(s.shape,p.shape)
         x = self.decoder(s, p)
         return x
