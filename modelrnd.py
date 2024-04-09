@@ -38,6 +38,7 @@ class Encoder(nn.Module):
         s=s.view(3, 128*128)
         #print(x.shape)
         p = self.linear(torch.flatten(x, 1))
+        print(s.shape)
         return s, p
 
 class Decoder(nn.Module):

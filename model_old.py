@@ -2,10 +2,6 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.nn import functional as F
-from torchsummary import summary
-from torch.utils.data import DataLoader
-from torchvision import transforms
-import pytorch3d.transforms
 
 print("MPS available:",torch.backends.mps.is_available())
 print("MPS built:",torch.backends.mps.is_built())

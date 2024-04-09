@@ -6,7 +6,6 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.nn import functional as F
-from torchsummary import summary
 from torch.utils.data import DataLoader
 from torchvision import transforms
 import os
@@ -30,7 +29,7 @@ autoencoder = Autoencoder().to(device)
 optimizer = optim.Adam(autoencoder.parameters(), lr=0.001)
 criterion = nn.MSELoss()
 
-K=5
+K=2
 checkpoint_path = 'checkpoint.pth'
 
 # Attiva il mantenimento attivo del computer
