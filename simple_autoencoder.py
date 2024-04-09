@@ -34,7 +34,7 @@ K=5
 checkpoint_path = 'checkpoint.pth'
 
 # Attiva il mantenimento attivo del computer
-caffeine.on(display=False)
+caffeine.on(display=True)
 
 # Funzione per caricare il video e processare i frame
 def process_video(video_path, autoencoder):
@@ -51,6 +51,7 @@ def process_video(video_path, autoencoder):
         ret, frame = cap.read()
         if not ret:
             break
+        framecount_container.write(f"frame {i}")
         
         frame = frame[..., [2, 1, 0]]
         frame = cv2.resize(frame, (1024, 1024))
@@ -60,7 +61,7 @@ def process_video(video_path, autoencoder):
         frame = torch.from_numpy(frame).permute(2, 0, 1).unsqueeze(0).float().to(device)
 
 
-        print(frame.shape)
+        #print(frame.shape)
         
         # Esegue l'inferenza con l'autoencoder
         with torch.set_grad_enabled(True):
@@ -105,7 +106,7 @@ st.title("Autoencoder Video Reconstruction")
 
 images_container = st.empty()
 progress_container = st.empty()
-
+framecount_container = st.empty()
 
 # Processa il video e visualizza i frame originali e ricostruiti
 while True:
