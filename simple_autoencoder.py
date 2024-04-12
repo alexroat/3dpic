@@ -11,7 +11,7 @@ from torchvision import transforms
 import os
 import caffeine
 
-from model import *
+from modelrnd import *
 
 print("MPS available:",torch.backends.mps.is_available())
 print("MPS built:",torch.backends.mps.is_built())
@@ -29,7 +29,7 @@ autoencoder = Autoencoder().to(device)
 optimizer = optim.Adam(autoencoder.parameters(), lr=0.001)
 criterion = nn.MSELoss()
 
-K=2
+K=3
 checkpoint_path = 'checkpoint.pth'
 
 # Attiva il mantenimento attivo del computer
